@@ -1,0 +1,8 @@
+{
+  "name": "oddsmarket_nodejs_client",
+  "version": "0.1.0",
+  "devDependencies": {
+    "request": "*", 
+    "underscore": "*"
+  }
+}
