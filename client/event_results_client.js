@@ -20,8 +20,15 @@ var EventResultsClient = function(apiKey, params, method, format){
       headers: {
         'Content-Type': 'text/'+this.format,
         'Accept': 'application/'+this.format,
+        'Accept-Encoding': 'gzip'
       }
     };
+
+    if (options['headers'] && 
+          options['headers']['Accept-Encoding'] && 
+            options['headers']['Accept-Encoding'].indexOf('gzip') != -1){
+      options['gzip'] = true;
+    }
     
     if (this.lastResponse != null && this.lastResponse.headers['etag']){
       options.headers['If-None-Match'] = this.lastResponse.headers['etag']; 

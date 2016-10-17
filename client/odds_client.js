@@ -23,8 +23,15 @@ var OddsClient = function(apiKey, bookmakersIds, params, type, method, format){
       headers: {
         'Content-Type': 'text/'+this.format,
         'Accept': 'application/'+this.format,
+        'Accept-Encoding': 'gzip'
       }
     };
+
+    if (options['headers'] && 
+          options['headers']['Accept-Encoding'] && 
+            options['headers']['Accept-Encoding'].indexOf('gzip') != -1){
+      options['gzip'] = true;
+    }
     
     if (this.lastResponse != null && this.lastResponse.headers['etag']){
       options.headers['If-None-Match'] = this.lastResponse.headers['etag']; 
@@ -39,6 +46,7 @@ var OddsClient = function(apiKey, bookmakersIds, params, type, method, format){
   this.sendGet = function(url, options, cb){
     var self = this;
     options['url'] = url + "?" + _.map(this.params, function(v, k) { return k+"="+encodeURIComponent(v); }).join("&");
+    
     request.get(options, function (error, response, body) {
       self.lastResponse = response;
       if (response.statusCode == 200){

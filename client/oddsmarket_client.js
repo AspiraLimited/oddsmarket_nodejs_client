@@ -13,8 +13,15 @@ var EventResultsClient = function(format){
       headers: {
         'Content-Type': 'text/'+this.format,
         'Accept': 'application/'+this.format,
+        'Accept-Encoding': 'gzip'
       }
     };
+
+    if (options['headers'] && 
+          options['headers']['Accept-Encoding'] && 
+            options['headers']['Accept-Encoding'].indexOf('gzip') != -1){
+      options['gzip'] = true;
+    }
     
     this.sendGet(url, options, cb);
   },
@@ -26,8 +33,15 @@ var EventResultsClient = function(format){
       headers: {
         'Content-Type': 'text/'+this.format,
         'Accept': 'application/'+this.format,
+        'Accept-Encoding': 'gzip'
       }
     };
+
+    if (options['headers'] && 
+          options['headers']['Accept-Encoding'] && 
+            options['headers']['Accept-Encoding'].indexOf('gzip') != -1){
+      options['gzip'] = true;
+    }
     
     this.sendGet(url, options, cb);
   },
